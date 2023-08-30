@@ -85,6 +85,7 @@ export class CodeBox {
       throw new Error("aiohttp_session is null");
     }
     const response = await this.aiohttp_session.get(`/codebox/start`);
+    console.log(response.data);
     this.session_id = response.data.id;
     console.log("CodeBox started!");
     return new CodeBoxStatus("started");
