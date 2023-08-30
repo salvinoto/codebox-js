@@ -1,0 +1,42 @@
+{
+  "name": "codebox",
+  "version": "1.0.0",
+  "description": "CodeBox is the simplest cloud infrastructure for your LLM Apps and Services. It allows you to run python code in an isolated/sandboxed environment.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salvinoto/codebox-js.git"
+  },
+  "keywords": [
+    "CodeBox",
+    "Cloud",
+    "Infrastructure",
+    "LLM",
+    "Apps",
+    "Services",
+    "Python",
+    "Code",
+    "Isolated",
+    "Environment",
+    "FileIO",
+    "Vector",
+    "Database",
+    "Support"
+  ],
+  "author": "Sal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/salvinoto/codebox-js/issues"
+  },
+  "homepage": "https://github.com/salvinoto/codebox-js#readme",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.5.0",
+    "dotenv": "^16.3.1"
+  }
+}
