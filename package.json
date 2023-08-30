@@ -33,6 +33,7 @@
   },
   "homepage": "https://github.com/salvinoto/codebox-js#readme",
   "devDependencies": {
+    "@types/node": "^20.5.7",
     "typescript": "^5.2.2"
   },
   "dependencies": {

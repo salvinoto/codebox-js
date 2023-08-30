@@ -1,16 +1,44 @@
 import axios, { AxiosInstance } from 'axios';
+import settings from './config';
 
-interface CodeBoxStatus {
+class CodeBoxStatus {
     status: string;
+
+    constructor(status: string) {
+        this.status = status;
+    }
+
+    toString() {
+        return this.status;
+    }
 }
 
-interface CodeBoxOutput {
-    // Define the properties of CodeBoxOutput here
+class CodeBoxOutput {
+    type: string;
+    content: string;
+
+    constructor(type: string, content: string) {
+        this.type = type;
+        this.content = content;
+    }
+
+    toString() {
+        return this.content;
+    }
 }
 
-interface CodeBoxFile {
+class CodeBoxFile {
     name: string;
     content: string | null;
+
+    constructor(name: string, content: string | null = null) {
+        this.name = name;
+        this.content = content;
+    }
+
+    toString() {
+        return this.name;
+    }
 }
 
 class CodeBox {
@@ -35,8 +63,9 @@ class CodeBox {
         }
         const response = await this.aiohttp_session({
             method: method,
-            url: `/codebox/${this.session_id}` + endpoint,
-            data: body
+            url: `${settings.CODEBOX_BASE_URL}/${this.session_id}` + endpoint,
+            data: body,
+            timeout: settings.CODEBOX_TIMEOUT * 1000
         });
         return response.data;
     }
@@ -44,7 +73,7 @@ class CodeBox {
     async start(): Promise<CodeBoxStatus> {
         if (this.session_id !== null) {
             console.log("CodeBox is already started!");
-            return { status: "started" };
+            return new CodeBoxStatus("started");
         }
         if (this.aiohttp_session === null) {
             throw new Error("aiohttp_session is null");
@@ -52,11 +81,11 @@ class CodeBox {
         const response = await this.aiohttp_session.get("/codebox/start");
         this.session_id = response.data.id;
         console.log("CodeBox started!");
-        return { status: "started" };
+        return new CodeBoxStatus("started");
     }
 
     async status() {
-        return this.codeboxRequest("GET", "/");
+        const response = await this.codeboxRequest("GET", "/");
     }
 
     async run(code: string) {
