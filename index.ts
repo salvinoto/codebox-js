@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import settings from "./config";
+import { v4 as uuidv4 } from 'uuid';
 
 export class CodeBoxStatus {
   status: string;
@@ -78,18 +79,18 @@ export class CodeBox {
 
   async start(): Promise<CodeBoxStatus> {
     if (this.session_id !== null) {
-      console.log("CodeBox is already started!");
-      return new CodeBoxStatus("started");
+        console.log("CodeBox is already started!");
+        return new CodeBoxStatus("started");
     }
     if (this.aiohttp_session === null) {
-      throw new Error("aiohttp_session is null");
+        throw new Error("aiohttp_session is null");
     }
     const response = await this.aiohttp_session.get(`/codebox/start`);
     console.log(response.data);
-    this.session_id = response.data.id;
+    this.session_id = uuidv4(response.data.id);
     console.log("CodeBox started!");
     return new CodeBoxStatus("started");
-  }
+}
 
   async status() {
     const response = await this.codeboxRequest(
